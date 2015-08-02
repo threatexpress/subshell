@@ -20,9 +20,9 @@ Options:
     -h --help                This Screen
     --url=<url>              URL source of webshell (http://localhost:80)
     --useragent=<useragent>  User-Agent String to use [default: Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/6.0)]
-    --mysqlu=<username>      MYSQL Username
-    --mysqlp=<password>      MySQL Password
-    --mysqls=<server>        MySQL Server IP or Hostname
+    --mysqlu=<username>      Set MYSQL Username
+    --mysqlp=<password>      Set MySQL Password
+    --mysqls=<server>        Set MySQL Server IP or Hostname
     --logdir=<logdir>        Directory path to logs [default: ./logs]
     --debug                  Enable Debugging
 
@@ -46,6 +46,8 @@ import threading
 import time
 from socket import timeout as TimeoutException
 from UserString import MutableString
+
+READLINE = True
 
 debug = False # Debug mode
 
@@ -178,7 +180,7 @@ class Console(cmd.Cmd):
         self.do_config()
         self.prompt = "["+self.currentdir + "]# "
 
-
+  
     # Log data to file
     def log(self,value):
         """ Log value to text file """
@@ -232,7 +234,7 @@ class Console(cmd.Cmd):
                 data['sessionid'] = buildSessionID(self.delta)
                 r = self.s.post(url, data=data,verify=False, timeout=self.timeout)
                 msg = " ** Time delta modified by", self.delta,"seconds."
-                print color(msg,clr="red",style="bold")
+                print color(msg,clr="WARNING",style="bold")
                 self.log(msg)
 
             if r.status_code == 200:
@@ -258,11 +260,11 @@ class Console(cmd.Cmd):
             else:
                 result = ""
                 msg = "HTTP status code", r.status_code
-                print color(msg,clr="red",style="bold")
+                print color(msg,clr="WARNING",style="bold")
                 self.log(msg)
                 
                 msg = r.text
-                print color(msg,clr="red",style="bold")
+                print color(msg,clr="WARNING",style="bold")
                 self.log(msg)
         
         except requests.ConnectionError as e:
@@ -290,6 +292,12 @@ class Console(cmd.Cmd):
                 self.download_threads.remove(t)
 
     ## Command definitions ##
+
+ 
+
+
+
+
     def do_history(self, args):
         """Print a list of last 20 commands that have been entered"""
         for item in self._history[-21:-1]:
@@ -345,7 +353,7 @@ class Console(cmd.Cmd):
             self.timeout = int("".join(args))
             result = color("Timeout set to " + str(int(args)),clr="blue",style="bold")
         except:
-            result =  color("Timeout must be integer\nCurrent Timeout: %s" % self.timeout,clr="red",style="bold")
+            result =  color("Timeout must be integer\nCurrent Timeout: %s" % self.timeout,clr="WARNING",style="bold")
 
         print result
 
@@ -366,10 +374,10 @@ class Console(cmd.Cmd):
         commandType = 'mysql'
         result = self.sendCommand(self.url, commandType, args)
         
-
         try:
             isJson = True
             json.loads(result)
+
 
         except ValueError:
             isJson = False
@@ -379,7 +387,7 @@ class Console(cmd.Cmd):
 
             if j == 0:
                 msg = "[!] Bad Query or No Results"
-                print color(msg,clr="red", style="bold")
+                print color(msg,clr="WARNING", style="bold")
                 self.log(msg)
 
             else:
@@ -388,8 +396,8 @@ class Console(cmd.Cmd):
                 for line in output.split("\n"):
                     print color(line[:int(columns)], clr="blue", style="bold")
 
-                print color("[!] Result is truncated based on screen width",clr="red", style="bold")
-                print color("[!] Review Log for Full Detail",clr="red", style="bold")
+                print color("[!] Result is truncated based on screen width",clr="WARNING", style="bold")
+                print color("[!] Review Log for Full Detail",clr="WARNING", style="bold")
               
                 self.log("JSON OUTPUT\n")
                 self.log(result)
@@ -397,13 +405,13 @@ class Console(cmd.Cmd):
                 self.log(output)
 
         else:
-            print color(result,clr="red",style="bold")
+            print color(result,clr="WARNING",style="bold")
 
     def do_mysql_db(self, args):
         """Set MYSQL Database"""
         if args == "":
             result = "Must provide a database"
-            print color(result,clr="red",style="bold")
+            print color(result,clr="WARNING",style="bold")
             result = "Current MYSQL DB is {0}".format(self.mysqlDB)
             print color(result,clr="blue",style="bold")
             return
@@ -415,7 +423,7 @@ class Console(cmd.Cmd):
         """Set MYSQL Server"""
         if args == "":
             result = "Must provide a server or IP address"
-            print color(result,clr="red",style="bold")
+            print color(result,clr="WARNING",style="bold")
             result = "Current Server is {0}".format(self.mysqlServer)
             print color(result,clr="blue",style="bold")
             return
@@ -427,7 +435,7 @@ class Console(cmd.Cmd):
         """Set MYSQL Username"""
         if args == "":
             result = "Must provide a username"
-            print color(result,clr="red",style="bold")
+            print color(result,clr="WARNING",style="bold")
             result = "Current Username is {0}".format(self.mysqlUser)
             print color(result,clr="blue",style="bold")
             return
@@ -439,7 +447,7 @@ class Console(cmd.Cmd):
         """Set MYSQL Password"""
         if args == "":
             result = "Must provide a password"
-            print color(result,clr="red",style="bold")
+            print color(result,clr="WARNING",style="bold")
             result = "Current Password is {0}".format(self.mysqlPass)
             print color(result,clr="blue",style="bold")
             return
@@ -713,7 +721,7 @@ if __name__ == '__main__':
  /        \  |  / \_\ \/        \|   Y  \  ___/|  |_|  |__
 /_______  /____/|___  /_______  /|___|  /\___  >____/____/
         \/          \/        \/      \/     \/           
-SubShell - Webshell Console - Joe Vest
+SubShell - Webshell Console Framework - Joe Vest
 """
     
     try:

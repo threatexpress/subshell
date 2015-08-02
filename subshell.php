@@ -27,9 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			echo($result);
 			die;
 		}
-
-
 	} 
+
 	elseif (isset($_POST['apikeyu'])) {
 		$value = "";
 		$dvalue = "";
@@ -129,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		if (!$d == "") {
 			if (!mysql_select_db($d, $link)) {
 		    	echo(base64_encode('Could not select database'));
-		    exit;
+		    	exit;
 			}
 		}
 

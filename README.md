@@ -7,7 +7,7 @@
  /        \  |  / \_\ \/        \|   Y  \  ___/|  |_|  |__
 /_______  /____/|___  /_______  /|___|  /\___  >____/____/
         \/          \/        \/      \/     \/           
-SubShell - Webshell Console - Joe Vest
+SubShell - Webshell Console Framework - Joe Vest
 
 Usage: 
     subshell.py  --url=<url>
@@ -26,6 +26,15 @@ Options:
 
 SubShell is a python command shell used to control a webshell through HTTP Post requests to a remote webshell.  SubShell acts as the interface to the remote webshells.  
 
+The design this project uses the principle of hiding in plain sight.  The goal is minimize attention.  Like numerous malicious tools, they are easy to find once you look.  This project is not designed to be steahly, but to minimize triggering defense such as IDS, Firewall, AV etc.
+
+How does it do this?
+
+  - POST request to minmize data in web logs
+  - Encoded traffic to avoid clear text detection
+  - Console interface forces a slow down when issuing commands.  Use of a webshell should be deliberate and focused.  Numerous connections may attract attention.
+  - Customization of user-agent to help blend in.
+
 ## Current Features
 
   - Designed for use on Windows Based systems
@@ -36,6 +45,7 @@ SubShell is a python command shell used to control a webshell through HTTP Post 
   - Tracks current directory by implementing common commands (cd, pwd, ls, dir)
   - Built in helper commands
   - Simple replay attack prevention.  Uses a token that is only valid +/- 12 hours of current time.
+  - 'Authentication' using replay attack prevention
 
 ## Python Dependencies
  
@@ -65,7 +75,7 @@ If an interactive command is submitted, the command will not return.  Command wi
 | Command   | Description      | Example
 |-----------|------------------|--------
 |cd         | change directory | cd c:\temp
-|command    | Optional command used to issue remote command.  No other built in command matches, then this command is assumed. | command tasklist
+|command    | Optional command used to issue remote command.  If no other built in command matches, then this command is assumed. | command tasklist
 |dir        | directory command | dir c:\temp
 |download   | download remote file.  Files stored in ./downloads.  The original file structure is created. | download c:\temp\myfile.txt
 |upload     | upload file to remote server. | upload myfile.txt c:\windows\temp\myfile.txt
