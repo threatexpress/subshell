@@ -7,20 +7,22 @@
  /        \  |  / \_\ \/        \|   Y  \  ___/|  |_|  |__
 /_______  /____/|___  /_______  /|___|  /\___  >____/____/
         \/          \/        \/      \/     \/           
-SubShell - Webshell Console Framework - Joe Vest
+SubShell - Webshell Console - Joe Vest
 
 Usage: 
     subshell.py  --url=<url>
-    subshell.py  --url=<url> [--useragent=<useragent] [--logdir=<logdir>]  
+    subshell.py  --url=<url> [--useragent=<useragent] [--logdir=<logdir>] [--debug] [--mysqlu=<MySQL Username] [--mysqlp=<MySQL Password> [--mysqls=<MySQL Server>]]
     subshell.py (-h | --help) More Help and Default Settings
 
 Options:
     -h --help                This Screen
     --url=<url>              URL source of webshell (http://localhost:80)
     --useragent=<useragent>  User-Agent String to use [default: Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/6.0)]
+    --mysqlu=<username>      Set MYSQL Username
+    --mysqlp=<password>      Set MySQL Password
+    --mysqls=<server>        Set MySQL Server IP or Hostname
     --logdir=<logdir>        Directory path to logs [default: ./logs]
-    --debug                  Enable debugging
-
+    --debug                  Enable Debugging
 
 ```
 
@@ -49,22 +51,7 @@ How does it do this?
 
 ## Python Dependencies
  
-  - import os
-  - import base64
-  - import cmd
-  - import readline
-  - import requests
-  - import sys
-  - import docopt
-  - import datetime
-  - import calendar
-  - import re
-  - import shlex
-  - import signal
-  - import threading
-  - import time
-  - from socket import timeout as TimeoutException
-  - from UserString import MutableString
+ - refer to requirements.txt
 
 ## SubShell Console Reference 
 
@@ -76,18 +63,26 @@ If an interactive command is submitted, the command will not return.  Command wi
 |-----------|------------------|--------
 |cd         | change directory | cd c:\temp
 |command    | Optional command used to issue remote command.  If no other built in command matches, then this command is assumed. | command tasklist
+|config     | Show current settings | config
 |dir        | directory command | dir c:\temp
 |download   | download remote file.  Files stored in ./downloads.  The original file structure is created. | download c:\temp\myfile.txt
-|upload     | upload file to remote server. | upload myfile.txt c:\windows\temp\myfile.txt
 |exit       | exit command shell | exit
+|help       | Display help for commands | help
 |history    | show command  history | history
-|config     | Show current config | config
-|status     | Show status for Uploads and Downloads | status
 |ls         | alias for dir | ls c:\temp
+|mysql      | Issue SQL command to MySQL Server base on MySQL confiuration | mysql show databases
+|mysql_db       | Select MySQL databse | mysql_db mysql
+|mysql_password | Select MySQL password | mysql_password password
+|mysql_server   | Select MySQL server   | mysql_server localhost
+|mysql_username | Select MySQL username | mysql_username root
+|ps         | List processes | ps
 |pwd        | show current directory | pwd
-|shell      | submit command to local shell | shell ifconfig 
-|timeout    | display or set the command timeout setting in seconds | timeout 120
 |python     | drop to interactive python shell | python
+|shell      | submit command to local shell | shell ifconfig 
+|status     | Show status for Uploads and Downloads | status
+|timeout    | display or set the command timeout setting in seconds | timeout 120
+|upload     | upload file to remote server. | upload myfile.txt c:\windows\temp\myfile.txt
+
 
 ## API Used to Communicate to web shells
 
