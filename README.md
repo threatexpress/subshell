@@ -28,7 +28,7 @@ Options:
 
 SubShell is a python command shell used to control a webshell through HTTP Post requests to a remote webshell.  SubShell acts as the interface to the remote webshells.  
 
-The design this project uses the principle of hiding in plain sight.  The goal is minimize attention.  Like numerous malicious tools, they are easy to find once you look.  This project is not designed to be steahly, but to minimize triggering defense such as IDS, Firewall, AV etc.
+The design this project uses the principle of hiding in plain sight.  The goal is minimize attention.  Like numerous malicious tools, they are easy to find once you look.  This project is designed stealthy, not through high-tech means, but by minimizing the triggering of a defense such as IDS, Firewall, AV etc.
 
 How does it do this?
 
@@ -121,6 +121,3 @@ POST Parameters
     - Command execution
     - HTTP POST Requests used for C2 traffic
     - Non-POST Requests render a valid 404 response
-
-
-
