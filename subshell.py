@@ -20,9 +20,9 @@ Options:
     -h --help                This Screen
     --url=<url>              URL source of webshell (http://localhost:80)
     --useragent=<useragent>  User-Agent String to use [default: Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/6.0)]
-    --mysqlu=<username>      Set MYSQL Username
-    --mysqlp=<password>      Set MySQL Password
-    --mysqls=<server>        Set MySQL Server IP or Hostname
+    --mysqlu=<username>      Set MYSQL Username [default: root]
+    --mysqlp=<password>      Set MySQL Password [defaul: "" ]
+    --mysqls=<server>        Set MySQL Server IP or Hostname [default: 127.0.0.1]
     --logdir=<logdir>        Directory path to logs [default: ./logs]
     --debug                  Enable Debugging
 
@@ -271,14 +271,14 @@ class Console(cmd.Cmd):
                 self.log(msg)
         
         except requests.ConnectionError as e:
-            msg = "[!] (" + commandType + ") ERROR (CONNECTION): " + e.message[-1]
+            msg = "[!] (" + commandType + ") ERROR (CONNECTION): \n" + str(e.message)
             print color(msg,"red", style="bold")
             self.log("[!] ERROR (CONNECTION)")
             self.log(e.message)
             return ''
 
         except requests.Timeout as e:
-            msg = "[!] (" + commandType + ") ERROR (TIMEOUT): " + e.message[-1]
+            msg = "[!] (" + commandType + ") ERROR (TIMEOUT): \n" + str(e.message[-1])
             print color(msg,"red", style="bold")
             self.log("[!] ERROR (TIMEOUT)")
             self.log(e.message)
@@ -735,9 +735,9 @@ SubShell - Webshell Console Framework - Joe Vest
         uas     = arguments['--useragent']
         logdir  = arguments['--logdir']
         debug   = arguments['--debug']
-        mysqlU  = arguments['--mysqlu'] or "root"
-        mysqlP  = arguments['--mysqlp'] or "password"
-        mysqlS  = arguments['--mysqls'] or "127.0.0.1"
+        mysqlU  = arguments['--mysqlu'] 
+        mysqlP  = arguments['--mysqlp']
+        mysqlS  = arguments['--mysqls'] 
 
         os.system("clear")
         target = color(url,clr="black",background="yellow",style="bold")
