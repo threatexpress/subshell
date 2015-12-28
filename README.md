@@ -7,7 +7,7 @@
  /        \  |  / \_\ \/        \|   Y  \  ___/|  |_|  |__
 /_______  /____/|___  /_______  /|___|  /\___  >____/____/
         \/          \/        \/      \/     \/           
-SubShell - Webshell Console - Joe Vest
+SubShell - Webshell Console - Joe Vest - 2015
 
 Usage: 
     subshell.py  --url=<url>
@@ -60,29 +60,29 @@ Interaction with a remote 'shell' using subshell is similar to a non-interactive
 
 If an interactive command is submitted, the command will not return.  Command will display a timeout error.  
 
-| Command   | Description      | Example
-|-----------|------------------|--------
-|cd         | change directory | cd c:\temp
-|command    | Optional command used to issue remote command.  If no other built in command matches, then this command is assumed. | command tasklist
-|config     | Show current settings | config
-|dir        | directory command | dir c:\temp
-|download   | download remote file.  Files stored in ./downloads.  The original file structure is created. | download c:\temp\myfile.txt
-|exit       | exit command shell | exit
-|help       | Display help for commands | help
-|history    | show command  history | history
-|ls         | alias for dir | ls c:\temp
-|mysql      | Issue SQL command to MySQL Server base on MySQL confiuration | mysql show databases
-|mysql_db       | Select MySQL databse | mysql_db mysql
-|mysql_password | Select MySQL password | mysql_password password
-|mysql_server   | Select MySQL server   | mysql_server localhost
-|mysql_username | Select MySQL username | mysql_username root
-|ps         | List processes | ps
-|pwd        | show current directory | pwd
-|python     | drop to interactive python shell | python
-|shell      | submit command to local shell | shell ifconfig 
-|status     | Show status for Uploads and Downloads | status
-|timeout    | display or set the command timeout setting in seconds | timeout 120
-|upload     | upload file to remote server. | upload myfile.txt c:\windows\temp\myfile.txt
+| Command       | Description                                                                                                         | Example
+|---------------|---------------------------------------------------------------------------------------------------------------------|--------------------------------------
+|cd             | change directory                                                                                                    | cd c:\temp
+|command        | Optional command used to issue remote command.  If no other built in command matches, then this command is assumed. | command tasklist
+|config         | Show current settings                                                                                               | config
+|dir            | directory command                                                                                                   | dir c:\temp
+|download       | download remote file.  Files stored in ./downloads.  The original file structure is created.                        | download c:\temp\myfile.txt
+|exit           | exit command shell                                                                                                  | exit
+|help           | Display help for commands                                                                                           | help
+|history        | show command  history                                                                                               | history
+|ls             | alias for dir                                                                                                       | ls c:\temp
+|mysql          | Issue SQL command to MySQL Server base on MySQL confiuration                                                        | mysql show databases
+|mysql_db       | Select MySQL databse                                                                                                | mysql_db mysql
+|mysql_password | Select MySQL password                                                                                               | mysql_password password
+|mysql_server   | Select MySQL server                                                                                                 | mysql_server localhost
+|mysql_username | Select MySQL username                                                                                               | mysql_username root
+|ps             | List processes                                                                                                      | ps
+|pwd            | show current directory                                                                                              | pwd
+|python         | drop to interactive python shell                                                                                    | python
+|shell          | submit command to local shell                                                                                       | shell ifconfig 
+|status         | Show status for Uploads and Downloads                                                                               | status
+|timeout        | display or set the command timeout setting in seconds                                                               | timeout 120
+|upload         | upload file to remote server.                                                                                       | upload myfile.txt c:\windows\temp\myfile.txt
 
 
 ## API Used to Communicate to web shells
@@ -107,6 +107,7 @@ POST Parameters
 |Issue command     |  x   |   x  |   x  |  x   |
 |Upload            |  x   |      |      |  x   |
 |Download          |  x   |   x  |   x  |  x   |
+|MySQL connector   |      |      |      |  x   |
 |404 on GET        |  x   |   x  |   x  |  x   |
 
   
