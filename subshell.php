@@ -2,6 +2,27 @@
 error_reporting(0);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+
+    if (isset($_POST['sessionid'])) {
+
+		$value = $_POST['sessionid'];
+		$dvalue = base64_decode($value);
+
+		$currentT = time();
+		$scope = 43200;
+		$minT = $currentT - $scope;
+		$maxT = $currentT + $scope;
+
+		if ($dvalue > $maxT || $dvalue < $minT) {
+			header('HTTP/1.0 404 Request Timeout');
+    		echo "<h1>404 Not Found</h1>";
+    		echo "<p>The page that you have requested could not be found.</p>";
+    		echo "<p>Expires: " . ($currentT - $dvalue) . "</p>" ;
+    		die;
+		}
+
+	}
+
     if (isset($_POST['apikey'])) {
 
 		$value = $_POST['apikey'];

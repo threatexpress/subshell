@@ -103,7 +103,7 @@ POST Parameters
 
 |Feature           | jsp  | aspx | asp  | php  |
 |------------------|------|------|------|------|
-|Replay Protection |  x   |   x  |   x  |      |
+|Replay Protection |  x   |   x  |   x  |  x   |
 |Issue command     |  x   |   x  |   x  |  x   |
 |Upload            |  x   |      |      |  x   |
 |Download          |  x   |   x  |   x  |  x   |

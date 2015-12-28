@@ -152,7 +152,7 @@ class Console(cmd.Cmd):
         self.upload_threads = []
 
         if not os.path.exists(logdir):
-    		os.makedirs(logdir)
+            os.makedirs(logdir)
 
         ########################################
         # HTTP Headers
