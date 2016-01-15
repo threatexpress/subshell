@@ -1,12 +1,25 @@
-# subshell.py
+# SubShell Web Shell Framework
+
+Author: Joe Vest
+
+Copyright 2015 - SubShell
+
+Written by: Joe Veat
+
+Company: MINIS
+
+DISCLAIMER: This is only for testing purposes and can only be used where strict consent has been given. Do not use this for illegal purposes.
+
+Please read the LICENSE in LICENSE.md for the licensing information
+
 
 ```
-  _________    ___.     _________.__           .__  .__   
- /   _____/__ _\_ |__  /   _____/|  |__   ____ |  | |  |  
+  _________    ___      _________ __            __   __   
+ /   _____/__ _\  |__  /   _____/|  |__   ____ |  | |  |  
  \_____  \|  |  \ __ \ \_____  \ |  |  \_/ __ \|  | |  |  
- /        \  |  / \_\ \/        \|   Y  \  ___/|  |_|  |__
-/_______  /____/|___  /_______  /|___|  /\___  >____/____/
-        \/          \/        \/      \/     \/           
+ /        \  |  / \_\ \/        \|   |  \  ___/|  |_|  |__
+/_________/____/|_____/_________/|___|__/\_____>____/____/
+
 SubShell - Webshell Console - Joe Vest - 2015
 
 Usage: 
@@ -25,25 +38,30 @@ Options:
     --debug                  Enable Debugging
 
 ```
+SubShell is a python command shell used to control and execute commands through HTTP requests to a webshell.  SubShell acts as the interface to the remote webshells.  
 
-SubShell is a python command shell used to control and excute commands through HTTP POST requests to a webshell.  SubShell acts as the interface to the remote webshells.  
+SubShell has a companion project named TinyShell.  TinyShell is similar and may offer benefits over SubShell in certain situations.
 
-This project uses the principle of hiding in plain sight (even over non-encrypted communications).  The goal is minimize attention.  Like numerous malicious tools, they are easy to find once you look.  This project is designed stealthy, not through high-tech means, but by minimizing the triggering of a defenses such as IDS, Firewall, AV etc.
+TinyShell - https://bitbucket.org/jvest/tinyshell
+
+This project was born out of the need for a consolidated webshell framework.  There are numerous available, but I wanted to created backend framework that supports numerous web languages with a common backend.
+
+This project uses the principle of hiding in plain sight (even over non-encrypted communications).  The goal is minimize attention.  Like numerous malicious tools, they are easy to find by defenders once they have a reason to look.  This project is designed to be stealthy, not through high-tech means, but by minimizing the triggering of a defenses such as IDS, Firewall, AV etc.
 
 How does it do this?
 
-  - POST requests minmize data in web logs
-  - Encoded traffic helps avoid clear text detection
+  - POST requests minmize data written web logs
+  - Encoded traffic helps avoid clear text detection 
   - Console interface forces a slow down when issuing commands.  Use of a webshell should be deliberate and focused.  Numerous connections may attract attention.
   - Customization of user-agent to help blend in.
-  - Valid 404 errors displayed when attemped to connect to shell without 'authetication' information
+  - Valid 404 errors displayed when attemped to connect to shell without 'authetnication' information
 
 ## Current Features
 
-  - Designed for used agains Windows Based targets
+  - Designed for used agains Windows Based servers
   - Supports shells in asp, aspx, php, jsp
   - Logging of all actions
-  - Base64 encoded data send and recevied in POST requests
+  - Base64 encoded command sent and receivied in POST requests
   - Invalid request generates a legitimate 404 message.
   - Tracks current directory by implementing common commands (cd, pwd, ls, dir)
   - Built in helper commands
@@ -58,7 +76,8 @@ How does it do this?
 
 Interaction with a remote 'shell' using subshell is similar to a non-interactive shell.  Non interactive commands can be submited and the results displayed.  
 
-If an interactive command is submitted, the command will not return.  Command will display a timeout error.  
+If an interactive command is submitted, the command will not return.  Command will display a timeout error.  This is an HTTP timeout and not an error of whether the command executed or not.
+
 
 | Command       | Description                                                                                                         | Example
 |---------------|---------------------------------------------------------------------------------------------------------------------|--------------------------------------
@@ -71,7 +90,7 @@ If an interactive command is submitted, the command will not return.  Command wi
 |help           | Display help for commands                                                                                           | help
 |history        | show command  history                                                                                               | history
 |ls             | alias for dir                                                                                                       | ls c:\temp
-|mysql          | Issue SQL command to MySQL Server base on MySQL confiuration                                                        | mysql show databases
+|mysql          | Issue SQL command to MySQL Server base on MySQL configuration                                                       | mysql show databases
 |mysql_db       | Select MySQL databse                                                                                                | mysql_db mysql
 |mysql_password | Select MySQL password                                                                                               | mysql_password password
 |mysql_server   | Select MySQL server                                                                                                 | mysql_server localhost
@@ -87,13 +106,13 @@ If an interactive command is submitted, the command will not return.  Command wi
 
 ## API Used to Communicate to web shells
 
-All command submitted to the shell are POST request with a minimu of 2 parameters (sessionid,'command')
+All command submitted to the shell are POST request with a minimum of 2 parameters (sessionid,command)
 
 POST Parameters
 
 |Parameter  | Description |
 |-----------|-------------|
-|sessionid  |Used to 'authenticate' requests and minimized replay attacks.  Based on current time.  Any request +/- 12hrs will not be allowed.  If the time is off a HTTP 408 will be sent with the HTTP header expires:'timevalue'.  SubShell can use this value to adjust its authentication it sends.|            
+|sessionid  |Used to 'authenticate' requests and minimized replay attacks.  Based on current time.  Any request +/- 12hrs will not be allowed.  If the time is off an HTTP 408 will be sent with the HTTP header expires:'timevalue'.  SubShell can use this value to adjust its authentication it sends.|            
 |apikey     |used to submit OS commands|
 |apikeyd    |Download file from remote host|
 |apikeyu    |Upload file to remote host |
@@ -110,8 +129,10 @@ POST Parameters
 |MySQL connector   |      |      |      |  x   |
 |404 on GET        |  x   |   x  |   x  |  x   |
 
-  
-## Initial Requirements
+ 
+----------------------------------------------------------------------------------- 
+
+## Initial Thought and Requirements to build project
   - Single command and control server
   - Web shell payloads (3 versions)
     - .jsp, .asp, .aspx
