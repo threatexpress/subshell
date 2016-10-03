@@ -42,7 +42,7 @@ SubShell is a python command shell used to control and execute commands through 
 
 SubShell has a companion project named TinyShell.  TinyShell is similar and may offer benefits over SubShell in certain situations.
 
-TinyShell - https://bitbucket.org/jvest/tinyshell
+TinyShell - https://github.com/minisllc/tinyshell
 
 This project was born out of the need for a consolidated webshell framework.  There are numerous available, but I wanted to created backend framework that supports numerous web languages with a common backend.
 
